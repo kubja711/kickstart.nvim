@@ -208,15 +208,6 @@ require('lazy').setup({
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
-
-      -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-      }
     end,
   },
 
@@ -495,7 +486,7 @@ require('lazy').setup({
             })
           end,
         },
-        -- prettierd = {},
+        prettierd = { filetypes = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' } },
         pyright = { filetypes = { 'python' } },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -538,7 +529,7 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
         'black',
         -- 'eslint_d',
-        -- 'prettierd',
+        'prettierd',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -578,8 +569,11 @@ require('lazy').setup({
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { 'prettierd' },
-        -- typescript = { 'prettierd' },
+        javascript = { 'prettierd' },
+        typescript = { 'prettierd' },
+        typescriptreact = { 'prettierd' },
+        javascriptreact = { 'prettierd' },
+        markdown = { 'prettierd' },
       },
     },
   },
@@ -694,29 +688,11 @@ require('lazy').setup({
     end,
   },
 
-  -- {
-  --   'ellisonleao/gruvbox.nvim',
-  --   name = 'gruvbox',
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {},
-  --   init = function()
-  --     require('gruvbox').setup {
-  --       palette_overrides = {
-  --         dark0 = '#000000',
-  --         dark1 = '#000000',
-  --       },
-  --     }
-  --     vim.cmd.colorscheme 'gruvbox'
-  --     -- vim.cmd.hi 'Comment gui=none'
-  --   end,
-  -- },
   {
     'nyngwang/nvimgelion',
     name = 'nvimgelion',
     config = function()
       vim.cmd.colorscheme 'nvimgelion'
-      -- do whatever you want for further customization~
       vim.cmd.hi 'Normal guifg=#ecf0f1 guibg=#121214'
     end,
   },
@@ -836,9 +812,6 @@ require('lazy').setup({
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 --
--- Netrw
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
-vim.keymap.set('n', '<C-Space>', '<cmd>Ex<CR>')
+-- vim.keymap.set('n', '<C-Space>', '<cmd>Ex<CR>')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
